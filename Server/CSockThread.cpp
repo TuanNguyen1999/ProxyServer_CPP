@@ -84,7 +84,6 @@ int CSockThread::Run()
 		today = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 		request = "";
 		response = "";
-
 		do
 		{
 
@@ -97,7 +96,8 @@ int CSockThread::Run()
 
 		} while (nByteReceived == len);
 		request += '\0';
-		if (nByteReceived <= 0) break;
+		if (nByteReceived <= 0)
+			break;
 
 		//Parse request from client
 		HttpHeader httpHeader = m_sConnected.RequestParser(request);
@@ -163,37 +163,58 @@ int CSockThread::Run()
 		httpHeader.Port = (httpHeader.Port == "") ? "80" : httpHeader.Port;
 		//Create a socket to send request to server
 
-		CRequestHandlerSock temp;
-		temp.Create();
-		if (temp.Connect(CString(httpHeader.Host), StrToIntA(httpHeader.Port)) == TRUE)
+		CRequestHandlerSock ToServer;
+		ToServer.Create();
+		if (ToServer.Connect(CString(httpHeader.Host), StrToIntA(httpHeader.Port)) == TRUE)
 		{
-			std::ofstream writeStream;
-			// Write created time
-			writeStream = std::ofstream(file + ".time", std::ios_base::binary);
-			writeStream << today;
-			writeStream.close();
-
+			// Create temporary file used to cache data
+			FILE* tempFile = NULL;	
+			tmpfile_s(&tempFile);	//NULL if unable to create temporary file
 
 			// Send request to server
-			temp.Send(request.GetString(), request.GetLength());
+			ToServer.Send(request.GetString(), request.GetLength());
 
-			writeStream = std::ofstream(file + ".data", std::ios_base::binary);	//Caching data to file
-
+			bool FullCached = false;
 			//  receive response from server
 			do
 			{
 				memset(buffer, 0, sizeof(CHAR) * len);
-				nByteReceived = temp.Receive(buffer, len);	//Blocking call
+				nByteReceived = ToServer.Receive(buffer, len);	//Blocking call
 
 				// Redirect response to client
 				if (nByteReceived > 0)
 				{
-					writeStream.write(buffer, nByteReceived);
+					// write data if tmp file is not null
+					if (tempFile) fwrite(buffer, sizeof(CHAR), nByteReceived, tempFile);
+
 					m_sConnected.Send(buffer, nByteReceived);
 				}
 			} while (nByteReceived > 0);
 
-			temp.Close();
+			std::ofstream writeStream;
+			if (tempFile && nByteReceived == 0)
+			{
+				// Write created time
+				writeStream = std::ofstream(file + ".time", std::ios_base::binary);
+				writeStream << today;
+				writeStream.close();
+
+				// Copy data from temp file to a new file
+				writeStream = std::ofstream(file + ".data", std::ios_base::binary);
+				rewind(tempFile);
+
+				CHAR* tempBuffer = new CHAR[1000];
+				while (!feof(tempFile))
+				{
+					memset(tempBuffer, 0, sizeof(CHAR));
+					size_t byteRead = fread(tempBuffer, sizeof(CHAR), 1000, tempFile);
+					writeStream.write(tempBuffer, 1000);
+				}
+				
+			}
+
+			std::fclose(tempFile);
+			ToServer.Close();
 			writeStream.close();
 		}
 	}
