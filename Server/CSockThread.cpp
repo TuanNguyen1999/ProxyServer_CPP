@@ -210,7 +210,7 @@ int CSockThread::Run()
 					size_t byteRead = fread(tempBuffer, sizeof(CHAR), 1000, tempFile);
 					writeStream.write(tempBuffer, 1000);
 				}
-				
+				delete[] tempBuffer;
 			}
 
 			std::fclose(tempFile);
