@@ -73,7 +73,7 @@ std::string CSockThread::ReFormatUri(const CStringA& str)
 
 int CSockThread::Run()
 {
-	int len = 100, nByteReceived = 0;
+	int len = 10000, nByteReceived = 0;
 	CHAR* buffer = new CHAR[len];
 	CStringA request, response;
 	time_t today;
@@ -86,7 +86,6 @@ int CSockThread::Run()
 		response = "";
 		do
 		{
-
 			memset(buffer, 0, sizeof(CHAR) * len);
 
 			//Waiting to receive request from client
