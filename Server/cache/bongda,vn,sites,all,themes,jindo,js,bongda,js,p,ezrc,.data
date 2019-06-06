@@ -1,0 +1,96 @@
+HTTP/1.1 200 OK
+Server: nginx/1.12.2
+Date: Thu, 06 Jun 2019 02:35:46 GMT
+Content-Type: application/javascript
+Content-Length: 2072
+Last-Modified: Fri, 08 Apr 2016 08:02:28 GMT
+Connection: keep-alive
+ETag: "57076594-818"
+Accept-Ranges: bytes
+
+﻿(function ($) {
+  Drupal.behaviors.bongda = {
+    attach: function (context) {
+      var base_root = Drupal.settings.bongda_api.base_root;
+
+      $(".btn_search").click(function(){
+        var key = $(this).parents('.box_search').children('.txt_search').val();
+        if(!key) {
+          alert("Bạn chưa nhập từ khóa");
+          return false;
+        }
+        window.location = base_root+'/search/node/'+key+'/';
+        return false;
+      });
+
+      $('.txt_search').keypress(function(e) {
+        if(e.which == 13) {
+          var key = $(this).parents('.box_search').children('.txt_search').val();
+          if(!key) {
+            alert("Bạn chưa nhập từ khóa");
+            return false;
+          }
+          window.location = base_root+'/search/node/'+key+'/';
+        }
+      });
+
+      $("#header").sticky({ topSpacing: 0 });
+
+      $(".expan_menu_mobile").on('click',function(){
+        $('.sub_menu_mobile').toggleClass('active');
+        $('.wrapper').toggleClass('active');
+      });
+
+      $('.expand_ico').on('click',function(){
+        var b = $(this).attr("data");
+        if (b == undefined || b == "o") {
+          $(this).attr("data", "x");
+          $(this).addClass("x1_ico");
+          $(this).parent().next().addClass("animated fadeInDown").show();
+        } else {
+          $(this).attr("data", "o");
+          $(this).removeClass("x1_ico");
+          $(this).parent().next().hide();
+        }
+      });
+
+     /* var w_window = $(window).width();
+      if (w_window >= 680 ) {
+        $('.slide_video1').bxSlider({
+          minSlides: 1,
+          maxSlides: 4,
+          slideWidth: 160,
+          slideMargin: 10,
+          moveSlides:1,
+          pager:false
+        });
+      }
+      if (w_window <= 680 ) {
+        $('.slide_video1').bxSlider({
+          minSlides:2,
+          maxSlides: 2,
+          slideWidth: 400,
+          slideMargin: 20,
+          moveSlides:1,
+          pager:false
+        });
+      }
+    });*/
+
+    }
+
+  }
+})(jQuery);HTTP/1.1 400 Bad Request
+Server: nginx/1.12.2
+Date: Thu, 06 Jun 2019 02:35:46 GMT
+Content-Type: text/html
+Content-Length: 173
+Connection: close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+<hr><center>nginx/1.12.2</center>
+</body>
+</html>

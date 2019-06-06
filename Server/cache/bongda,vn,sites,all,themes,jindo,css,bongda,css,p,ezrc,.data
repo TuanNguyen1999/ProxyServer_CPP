@@ -1,0 +1,204 @@
+HTTP/1.1 200 OK
+Server: nginx/1.12.2
+Date: Thu, 06 Jun 2019 02:35:46 GMT
+Content-Type: text/css
+Content-Length: 3397
+Last-Modified: Thu, 26 May 2016 03:07:19 GMT
+Connection: keep-alive
+ETag: "57466867-d45"
+Accept-Ranges: bytes
+
+﻿.box_slidevideo li.active a{
+    font-weight: bold;
+    color: #000;
+}
+
+div.node-article.node-teaser li, div.node-video.node-teaser li{
+    margin-bottom:15px;padding-bottom:15px;border-bottom:1px dotted #ddd
+}
+
+div.menu_main, div.footer{
+    z-index: 10002;
+}
+
+.paging li.pager-current a{
+    background: #d44044;
+    border: 1px solid #d44044;
+    color: #fff;
+}
+
+div.paging div.item-list{
+    display: table;   /* Allow the centering to work */
+    margin: 0 auto;
+}
+
+ul.my_pager{
+    list-style: none;
+}
+
+ul.my_pager li {
+    display: inline;
+}
+
+.menu_main{
+    /*background-image: -ms-linear-gradient(top, #113B8B 0%, #0F3781 50%, #071A3E 100%);
+    background-image: -moz-linear-gradient(top, #113B8B 0%, #0F3781 50%, #071A3E 100%);
+    background-image: -o-linear-gradient(top, #113B8B 0%, #0F3781 50%, #071A3E 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #113B8B), color-stop(50, #0F3781), color-stop(100, #071A3E));
+    background-image: -webkit-linear-gradient(top, #113B8B 0%, #0F3781 50%, #071A3E 100%);
+    background-image: linear-gradient(to bottom, #113B8B 0%, #0F3781 50%, #071A3E 100%);
+    border-bottom: 3px solid #15439b;*/
+
+    background-color: #0a1e3f;
+    border-bottom: 3px solid #ccc;
+}
+
+.navigation > li > h2 >a {
+    color: #fff;
+    padding: 10px 7px;
+}
+
+.navigation > li:hover > h2 > a, .navigation > li.active > a {
+    background: #fff;
+    text-decoration: none;
+    border-bottom: 3px solid #15439b;
+    margin-bottom: -3px;
+    color: #0D4493;
+}
+
+.sub_menu_top {
+    border-bottom: 3px solid #15439b;
+}
+
+.btn_menu {
+    background: #15439b;
+}
+
+.btn_menu:hover .expan_menu {
+    background: #15439b;
+}
+
+.sub_menu a {
+    color: #333;
+}
+
+.sub_menu li:hover{background:#fff;}
+
+a:hover, .title_list_slide:hover, .bg_head_left:hover {
+    color:#0D4493;
+}
+
+.navigation > li:hover > a, .navigation > li.active > a {
+    border-bottom: 3px solid #15439b;
+}
+
+.paging li.pager-current a {
+    background: #154bb0;
+    border: 1px solid #154bb0;
+}
+
+.paging a:hover {
+    color: #15439b;
+}
+
+.title_head_right {
+    border-top: 2px solid #15439b;
+}
+
+.bg_head_left {
+    border-bottom: 2px solid #15439b;
+}
+
+#gocnhin {
+    border-top: 1px dotted #ddd;
+    width: 100%;
+}
+.width_common {
+    width: 100%;
+    float: left;
+}
+
+#header_menu{
+    z-index: 10002;
+}
+
+#user-login input{
+    border: groove;
+}
+
+#content_detail_news{
+    min-height: 470px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+#content_detail_news div.rtecenter, #content_detail_news p.rtecenter{
+    text-align: center !important;
+}
+
+#iframe_football_league{
+    width: 100%;
+    min-height: 315px;
+    border: none;
+}
+
+#iframe_football_table{
+    width: 100%;
+    min-height: 395px;
+    border: none;
+}
+
+.pager_top{
+    padding: 4px 0;
+}
+
+.bigBettingMatches{
+    width: 100%;
+}
+
+.matchDescription{
+    width: 85%;
+}
+
+@media (max-width: 693px){
+    #iframe_football_league{
+        display: none;
+    }
+}
+
+.footer_right{
+    background: none;
+}
+
+.footer div.head_menu_footer a:hover{
+    color: #fff;
+}
+
+.footer li a:hover{
+    color: #aaa;
+}
+
+.break_cump{
+    padding: 10px 0 5px;
+}
+
+.break_cump_detail {
+    padding: 10px 0;
+}
+
+.title_news_right {
+    font-style: normal;
+}HTTP/1.1 400 Bad Request
+Server: nginx/1.12.2
+Date: Thu, 06 Jun 2019 02:35:46 GMT
+Content-Type: text/html
+Content-Length: 173
+Connection: close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+<hr><center>nginx/1.12.2</center>
+</body>
+</html>

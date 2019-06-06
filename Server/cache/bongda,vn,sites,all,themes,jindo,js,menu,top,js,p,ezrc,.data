@@ -1,0 +1,132 @@
+HTTP/1.1 200 OK
+Server: nginx/1.12.2
+Date: Thu, 06 Jun 2019 02:35:46 GMT
+Content-Type: application/javascript
+Content-Length: 3396
+Last-Modified: Fri, 08 Apr 2016 08:02:29 GMT
+Connection: keep-alive
+ETag: "57076595-d44"
+Accept-Ranges: bytes
+
+(function ($) {
+  Drupal.behaviors.menu_top = {
+    attach: function (context) {
+      var IsIChrome = navigator.userAgent.search("CriOS") >= 0 ? true : false;
+      var IsIos7 = /(iPhone|iPod|iPad);.*CPU.*OS 7_\d/i.test(navigator.userAgent);
+      var expand = 0;
+      var position = $(window).scrollTop();
+      var header_h = $("#header").height();
+      var iden1 = 0;
+      var timeout = null;
+      document.addEventListener("touchmove", touchMove, false);
+      document.addEventListener("scroll", Scroll, false);
+
+      function fix_menu_chorme() {
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+          $(".empty").hide();
+          iden1 = 0;
+        }, 3000);
+      }
+
+      var fix_height = $(window).height();
+      var up = false;
+
+      function touchMove() {
+        if (expand == 0) {
+          var scroll = $(window).scrollTop();
+          if (scroll > position) {
+            if (scroll > header_h + 50) {
+              $("#header_menu").hide();
+
+              iden1 = 0;
+              up = false;
+            }
+          } else if (position > scroll + 5) {
+            if ($(window).scrollTop() > header_h) {
+              if (IsIChrome && !IsIos7) {
+                fix_menu_chorme();
+              }
+              if (iden1 == 0) {
+                $("#header_menu").css("position", "fixed");
+                $("#header_menu").addClass("animated fadeInDown");
+                if (IsIChrome && !IsIos7) {
+                  $(".empty").show();
+                  fix_menu_chorme();
+                }
+                $("#header_menu").show();
+                iden1 = 1;
+                up = true;
+              }
+            }
+            else {
+              $(".empty").hide();
+              $("#header_menu").removeClass("animated");
+              $("#header_menu").removeClass("fadeInDown");
+              up = false;
+            }
+          }
+          if (up && scroll <= 50) {
+            $(".empty").hide();
+          }
+          position = scroll;
+        }
+      }
+
+      function Scroll() {
+        if (expand == 0) {
+          var scroll = $(window).scrollTop();
+
+          if (scroll > position) {
+            if (scroll > header_h + 50) {
+              $("#header_menu").hide();
+              iden1 = 0;
+              up = false;
+            }
+          } else if (position > scroll + 5) {
+            if ($(window).scrollTop() > header_h) {
+              if (IsIChrome && !IsIos7) {
+                fix_menu_chorme();
+              }
+              if (iden1 == 0) {
+                $("#header_menu").css("position", "fixed");
+                $("#header_menu").addClass("animated fadeInDown");
+                if (IsIChrome && !IsIos7) {
+                  $(".empty").show();
+                  fix_menu_chorme();
+                }
+                $("#header_menu").show();
+                iden1 = 1;
+                up = true;
+              }
+            }
+            else {
+              $(".empty").hide();
+              $("#header_menu").removeClass("animated");
+              $("#header_menu").removeClass("fadeInDown");
+              up = false;
+            }
+          }
+          if (up && scroll <= 50) {
+            $(".empty").hide();
+          }
+          position = scroll;
+        }
+      }
+
+    }
+  }
+})(jQuery);HTTP/1.1 400 Bad Request
+Server: nginx/1.12.2
+Date: Thu, 06 Jun 2019 02:35:46 GMT
+Content-Type: text/html
+Content-Length: 173
+Connection: close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+<hr><center>nginx/1.12.2</center>
+</body>
+</html>

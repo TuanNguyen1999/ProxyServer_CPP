@@ -1,0 +1,86 @@
+HTTP/1.1 200 OK
+Server: nginx/1.12.2
+Date: Thu, 06 Jun 2019 02:35:46 GMT
+Content-Type: application/javascript
+Content-Length: 1818
+Last-Modified: Fri, 08 Apr 2016 08:02:30 GMT
+Connection: keep-alive
+ETag: "57076596-71a"
+Accept-Ranges: bytes
+
+﻿(function ($) {
+  Drupal.behaviors.node = {
+    attach: function (context) {
+      if($('#media_player').length){
+        jwplayer.key = "bqXTMu3sw4ed4TTCRQCNd9dO1S2BIU9RhGXFUzLV+OY=";
+
+        var title = $('<div/>').html(Drupal.settings.bongda_api.title).text();
+
+        jwplayer('media_player').setup({
+          skin: 'bekle',
+          file: Drupal.settings.bongda_api.media_link,
+          image: Drupal.settings.bongda_api.image_link,
+          title: title,
+          stretching: 'uniform',
+          width: '100%',
+          height: '300',
+          primary: 'html5'
+        });
+      }
+
+      setTimeout(tlq_stick,2000);
+      
+      function tlq_stick(){
+        var obj_tlq_stick = $('#tlq_stick');
+
+        if (obj_tlq_stick.offset()) {
+          var top_ads_stick = obj_tlq_stick.offset().top;
+          var top_end = $("#end_stick").offset().top - obj_tlq_stick.height() - 170;
+
+          $(window).scroll(function(){
+            var y = $(window).scrollTop();
+            if(y > top_ads_stick) obj_tlq_stick.css({"position":"fixed","top":"0px"});
+            else obj_tlq_stick.css("position","inherit");
+            if(y > top_end) obj_tlq_stick.css({"position":"absolute","top":top_end});
+          });
+        }
+      }
+
+      var w_window = $(window).width();
+      if (w_window >= 680 ) {
+        $('.slider_video').bxSlider({
+          minSlides: 1,
+          maxSlides: 4,
+          slideWidth: 160,
+          slideMargin: 10,
+          moveSlides:1,
+          pager:false
+        });
+      } else  {
+        $('.slider_video').bxSlider({
+          minSlides:2,
+          maxSlides: 2,
+          slideWidth: 400,
+          slideMargin: 20,
+          moveSlides:1,
+          pager:false
+        });
+      }
+
+
+    }
+  }
+})(jQuery);HTTP/1.1 400 Bad Request
+Server: nginx/1.12.2
+Date: Thu, 06 Jun 2019 02:35:46 GMT
+Content-Type: text/html
+Content-Length: 173
+Connection: close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+<hr><center>nginx/1.12.2</center>
+</body>
+</html>

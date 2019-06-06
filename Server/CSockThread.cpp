@@ -48,8 +48,8 @@ std::string CSockThread::ReFormatUri(const CStringA& str)
 {
 	auto ToHyphen = [&](char c)
 	{
-		if (c == '\\' || c == '/' || c == ':') c = '-';
-		return	c;
+		if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') return c;
+		else return ',';
 	};
 
 	int i = 0;
@@ -134,7 +134,7 @@ int CSockThread::Run()
 
 		std::string time_file = file + ".time";
 
-		std::ifstream readStream(time_file, std::ios_base::binary);
+		std::ifstream readStream(time_file, std::ios_base::binary | std::ios_base::in);
 		if (readStream.is_open())
 		{
 			time_t dateCreated = 0;
@@ -142,17 +142,20 @@ int CSockThread::Run()
 			if (today - dateCreated <= CACHE_MAX_AGE)
 			{
 				std::string data_file = file + ".data";
-				std::ifstream readStream(data_file, std::ios_base::binary);
+				std::ifstream readStream(data_file, std::ios_base::binary | std::ios_base::in);
 
 				if (readStream.is_open())
 				{
-					//AfxMessageBox(L"Get data from file");
-					while (!readStream.eof())
-					{
-						memset(buffer, 0, len);
-						readStream.read(buffer, len);
-						m_sConnected.Send(buffer, len);
-					}
+					// get length of file:
+					readStream.seekg(0, readStream.end);
+					int length = readStream.tellg();
+					readStream.seekg(0, readStream.beg);
+
+					CHAR* buffer = new CHAR[length];
+					readStream.read(buffer, length);
+					m_sConnected.Send(buffer, length);
+
+					delete[] buffer;
 					continue;
 				}
 			}
@@ -194,20 +197,20 @@ int CSockThread::Run()
 			if (tempFile && nByteReceived == 0)
 			{
 				// Write created time
-				writeStream = std::ofstream(file + ".time", std::ios_base::binary);
+				writeStream = std::ofstream(file + ".time", std::ios_base::binary | std::ios_base::out);
 				writeStream << today;
 				writeStream.close();
 
 				// Copy data from temp file to a new file
-				writeStream = std::ofstream(file + ".data", std::ios_base::binary);
+				writeStream = std::ofstream(file + ".data", std::ios_base::binary | std::ios_base::out);
 				rewind(tempFile);
 
-				CHAR* tempBuffer = new CHAR[1000];
+				CHAR* tempBuffer = new CHAR[len];
 				while (!feof(tempFile))
 				{
 					memset(tempBuffer, 0, sizeof(CHAR));
-					size_t byteRead = fread(tempBuffer, sizeof(CHAR), 1000, tempFile);
-					writeStream.write(tempBuffer, 1000);
+					size_t byteRead = fread(tempBuffer, sizeof(CHAR), len, tempFile);
+					writeStream.write(tempBuffer, byteRead);
 				}
 				delete[] tempBuffer;
 			}

@@ -1,0 +1,35 @@
+HTTP/1.1 200 OK
+Server: nginx/1.12.2
+Date: Thu, 06 Jun 2019 02:35:46 GMT
+Content-Type: application/javascript
+Content-Length: 247
+Last-Modified: Fri, 08 Apr 2016 08:02:29 GMT
+Connection: keep-alive
+ETag: "57076595-f7"
+Accept-Ranges: bytes
+
+﻿(function ($) {
+  Drupal.behaviors.front = {
+    attach: function (context) {
+      $('.list_slide').bxSlider({
+        pager:false,
+        auto:true,
+        controls:true,
+        touchEnabled:false
+      });
+    }
+  }
+})(jQuery);HTTP/1.1 400 Bad Request
+Server: nginx/1.12.2
+Date: Thu, 06 Jun 2019 02:35:46 GMT
+Content-Type: text/html
+Content-Length: 173
+Connection: close
+
+<html>
+<head><title>400 Bad Request</title></head>
+<body bgcolor="white">
+<center><h1>400 Bad Request</h1></center>
+<hr><center>nginx/1.12.2</center>
+</body>
+</html>
